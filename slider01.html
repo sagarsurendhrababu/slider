@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        .slider{width: 700px; height: 400px; background-color: darkgreen; list-style: none; margin: 0 auto;}
+        .slider>li{width: 100%; height: 100%; background-color: yellow; color: #000; font-size: 5rem; text-align: center; line-height: 400px;}
+    </style>
+</head>
+<body>
+    <ul class="slider">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        let slider = document.querySelector(".slider");
+        let slides= document.querySelectorAll(".slider li");
+        let num = 0;
+        //hide all slides 
+        slides.forEach(ele=>{
+            ele.style.display="none";
+        });
+
+        //auto scliding
+        const autoSlide = ()=>{
+            if(num<slides.length-1){
+                slides[num].style.display="block"; 
+                slides[slides.length-1].style.display="none";                     
+                if(num!=0){
+                    slides[num-1].style.display="none";
+                }
+                num++;       
+            }else{
+                slides[num].style.display="block";
+                slides[num-1].style.display="none";
+                num=0;                
+            }                 
+            setTimeout(autoSlide,1000);
+        }                
+        autoSlide();
+
+    </script>
+</body>
+</html>
