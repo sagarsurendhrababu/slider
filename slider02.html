@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider02</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        .slider{
+            width: 900px;
+            height: 400px;
+            background-color: chocolate;
+            margin: 0 auto;
+            list-style: none;
+            overflow: hidden;
+            position: relative;
+        }
+        .slider>li{width: 100%; height: 400px; background-color: yellow; color: #000; font-size: 5rem;}
+        .slider>li>img{width: 100%; height: 100%; background-size: cover;}
+    </style>
+</head>
+<body>
+    <ul class="slider">
+        <li><img src="./img/01.jpg" alt=""></li>
+        <li><img src="./img/02.jpg" alt=""></li>
+        <li><img src="./img/03.jpg" alt=""></li>
+        <li><img src="./img/05.jpg" alt=""></li>
+    </ul>
+    <script>
+        let sliders = document.querySelectorAll(".slider li");
+        sliders.forEach(ele=>{
+            ele.style.visibility="hidden";
+            ele.style.transform="translateX(900px)";
+            ele.style.position="absolute";            
+        })
+        let num = 0;
+        const slideMove = ()=>{
+
+            if(num<sliders.length){
+            sliders[num].style.visibility="visible";
+            sliders[num].style.transform="translateX(0px)";            
+            sliders[num].style.transition="all 1s linear";
+            let lastSlider = sliders[sliders.length-1];
+                 
+            if(lastSlider.computedStyleMap().get('transform')[0].x.value===-900){
+                lastSlider.style.transform = "translateX(900px)";                
+            }            
+            if(num!=0){
+                sliders[num-1].style.transform="translateX(-900px)";
+                sliders[num-1].style.visibility="hidden";
+            }if(num>1){
+                sliders[num-2].style.transform="translateX(900px)";                            
+            }            
+            num++;            
+            console.log(num);
+            }else{                
+                sliders[num-1].style.transform="translateX(-900px)";
+                if(num>1){
+                sliders[num-2].style.transform="translateX(900px)";                
+                } 
+                num=0;
+                sliders[num].style.visibility="visible";
+                sliders[num].style.transform="translateX(0px)"; 
+                sliders[num].style.zIndex=999;
+                
+            }
+            setTimeout(slideMove,2000);
+        }
+        slideMove();
+
+    </script>
+</body>
+</html>

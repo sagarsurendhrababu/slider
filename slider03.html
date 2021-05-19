@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider03</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        :root{--width:700px}
+        .slider{width: var(--width); height: 300px; overflow: hidden;  margin: 5% auto; background-color: darkgreen; position: relative; list-style: none;}
+        .slider>li{width: 100%; height: 100%; background-color: darkkhaki;  position: absolute; font-size: 5rem; color: #fff;}                
+        .active{visibility: visible; z-index: 999; transform: translateX(0px); transition: all 1s linear;}
+        .deactive{visibility: hidden; transform: translateX(var(--width)); transition: all .5s linear 1s;}
+        .btnCtrl{width: 100%; height: 50px;  display: flex; justify-content: space-between; position:absolute; left: 0; top:40%; z-index: 9999;}
+        .btnCtrl>button{width: 50px; cursor: pointer; height: 50px; background-color: #000; border-radius: 50%; border: none; color: #fff;}
+        .btnCtrl>button:hover{background-color: grey;}
+    </style>
+</head>
+<body>
+    <ul class="slider">
+        <li><img src="./img/01.jpg" alt=""></li>
+        <li><img src="./img/02.jpg" alt=""></li>
+        <li><img src="./img/03.jpg" alt=""></li>
+        <li><img src="./img/05.jpg" alt=""></li>
+        <li><img src="./img/06.jpg" alt=""></li>
+        <div class="btnCtrl">
+            <button class="preBtn">Pre</button>    
+            <button class="nxtBtn">Nxt</button>          
+        </div>        
+    </ul>
+
+  
+    <script>
+        let slider = document.querySelector(".slider");
+        let sliders = document.querySelectorAll(".slider li");
+        let nextBtn = document.querySelector(".nxtBtn");
+        let preBtn = document.querySelector(".preBtn");
+        let sliderWidth = slider.clientWidth;
+        let num=0;
+        
+        //hide all sliders
+        sliders.forEach(ele=>{
+            ele.classList.add("deactive");                   
+        });
+
+        const slidingScreen = ()=>{
+            if(num<=sliders.length-1){
+                sliders[num].classList.add("active");               
+                sliders[num].classList.remove("deactive");
+
+                if(num!=0){                    
+                    sliders[num-1].classList.add("deactive");
+                    sliders[num-1].classList.remove("active")
+                }
+                num++
+            }else{ 
+                sliders[num-1].classList.add("deactive");
+                sliders[num-1].classList.remove("active");                             
+                num=0;               
+                sliders[num].classList.add("active");
+                sliders[num].classList.remove("deactive");                
+            }
+            setTimeout(slidingScreen,5000);
+        }
+        slidingScreen();
+
+        //Next btn function area
+        nextBtn.addEventListener("click",nextBtnFn(next));
+        preBtn.addEventListener("click",nextBtnFn(prev));
+
+        function nextBtnFn(direction){
+            if(direction==="next"){
+                num++;
+                sliders[num].classList.add("active");
+                sliders[num].classList.remove("deactive");                
+            }else{
+                num--
+                sliders[num].classList.add("active");
+                sliders[num].classList.remove("deactive");                 
+            }
+
+        }
+
+    </script>
+</body>
+</html>
