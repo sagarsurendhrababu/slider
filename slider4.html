@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider4</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        :root{
+            --mainHeight:400px;
+            --cntrlHeight:40px;
+        }
+        .slider{width: 700px; height: var(--mainHeight); background-color: coral; list-style: none; margin: 0 auto; position: relative;}
+        .slider>li{width: 100%; height: 100%; background-color: darkgreen; position: absolute;
+        color: #fff; font-size: 5rem; opacity: 0.5;}
+        .controler{width: 100%; flex-direction: row-reverse; display: flex; justify-content: space-between; height:var(--cntrlHeight); position: absolute; top: calc(var(--mainHeight)/2 - var(--cntrlHeight)/2); left: 0;}
+        .controler a{width: var(--cntrlHeight); height:var(--cntrlHeight); background-color: black; border-radius: 50%; color: blanchedalmond; display: flex; justify-content: center; align-items: center; text-decoration: none;}
+        .controler a:hover{background-color:coral;}
+    </style>
+</head>
+<body>
+    <ul class="slider">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <div class="controler">
+            <a href="#" class="nextBtn">Next</a>
+            <a href="#" class="preBtn">Prev</a>
+        </div>
+    </ul>
+    <script>
+        let slides = document.querySelectorAll(".slider li");
+       let nextBtn = document.querySelector(".nextBtn");
+       let preBtn = document.querySelector(".preBtn");
+        let num=0;
+
+        nextBtn.addEventListener("click",function(){
+            moveSlide("next");
+        });
+        preBtn.addEventListener("click",function(){
+            moveSlide("prev");
+        });
+
+        slides.forEach(ele=>{
+            ele.style.display="none"; 
+            slides[0].style.display="block";
+        });        
+
+        function moveSlide(dir){            
+            if(dir==="next"){ 
+                num++
+                if(num<slides.length){
+                    slides[num].style.display="block";
+                    slides[num-1].style.display="none"; 
+                                    
+                }else{
+                    slides[num-1].style.display="none";
+                    num=0;
+                    slides[num].style.display="block";
+                }
+            }else{ 
+                num--;
+                if(num<0){
+                    slides[num+1].style.display="none";
+                    num=slides.length-1;
+                    slides[num].style.display="block";
+                }else{
+                    slides[num].style.display="block";
+                    slides[num+1].style.display="none";
+                }
+            }
+        }
+
+
+    </script>
+</body>
+</html>

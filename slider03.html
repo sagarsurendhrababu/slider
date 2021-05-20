@@ -23,11 +23,7 @@
         <li><img src="./img/02.jpg" alt=""></li>
         <li><img src="./img/03.jpg" alt=""></li>
         <li><img src="./img/05.jpg" alt=""></li>
-        <li><img src="./img/06.jpg" alt=""></li>
-        <div class="btnCtrl">
-            <button class="preBtn">Pre</button>    
-            <button class="nxtBtn">Nxt</button>          
-        </div>        
+        <li><img src="./img/06.jpg" alt=""></li>     
     </ul>
 
   
@@ -38,7 +34,7 @@
         let preBtn = document.querySelector(".preBtn");
         let sliderWidth = slider.clientWidth;
         let num=0;
-        
+       
         //hide all sliders
         sliders.forEach(ele=>{
             ele.classList.add("deactive");                   
@@ -61,27 +57,11 @@
                 sliders[num].classList.add("active");
                 sliders[num].classList.remove("deactive");                
             }
-            setTimeout(slidingScreen,5000);
+            setTimeout(slidingScreen,3000);
         }
         slidingScreen();
 
-        //Next btn function area
-        nextBtn.addEventListener("click",nextBtnFn(next));
-        preBtn.addEventListener("click",nextBtnFn(prev));
-
-        function nextBtnFn(direction){
-            if(direction==="next"){
-                num++;
-                sliders[num].classList.add("active");
-                sliders[num].classList.remove("deactive");                
-            }else{
-                num--
-                sliders[num].classList.add("active");
-                sliders[num].classList.remove("deactive");                 
-            }
-
-        }
-
+     
     </script>
 </body>
 </html>
