@@ -12,7 +12,7 @@
         .slider>li{width: 100%; height: 100%; background-color: darkkhaki;  position: absolute; font-size: 5rem; color: #fff;}                
         .active{visibility: visible; z-index: 999; transform: translateX(0px); transition: all 1s linear;}
         .deactive{visibility: hidden; transform: translateX(var(--width)); transition: all .5s linear 1s;}
-        .btnCtrl{width: 100%; height: 50px;  display: flex; justify-content: space-between; position:absolute; left: 0; top:40%; z-index: 9999;}
+        .btnCtrl{width: 100%; height: 50px; flex-direction: row-reverse;  display: flex; justify-content: space-between; position:absolute; left: 0; top:40%; z-index: 9999;}
         .btnCtrl>button{width: 50px; cursor: pointer; height: 50px; background-color: #000; border-radius: 50%; border: none; color: #fff;}
         .btnCtrl>button:hover{background-color: grey;}
     </style>
@@ -23,15 +23,17 @@
         <li><img src="./img/02.jpg" alt=""></li>
         <li><img src="./img/03.jpg" alt=""></li>
         <li><img src="./img/05.jpg" alt=""></li>
-        <li><img src="./img/06.jpg" alt=""></li>     
+        <li><img src="./img/06.jpg" alt=""></li>
+        <div class="btnCtrl"><button class="nextBtn">Next</button><button class="preBtn">Prev</button></div>     
     </ul>
+    
 
   
     <script>
         let slider = document.querySelector(".slider");
         let sliders = document.querySelectorAll(".slider li");
-        let nextBtn = document.querySelector(".nxtBtn");
-        let preBtn = document.querySelector(".preBtn");
+        let nextBtn = document.querySelector(".nextBtn");
+        let preBtn = document.querySelector(".preBtn");        
         let sliderWidth = slider.clientWidth;
         let num=0;
        
@@ -41,25 +43,56 @@
         });
 
         const slidingScreen = ()=>{
-            if(num<=sliders.length-1){
+            
+            if(num<=sliders.length-1){            
                 sliders[num].classList.add("active");               
                 sliders[num].classList.remove("deactive");
 
                 if(num!=0){                    
                     sliders[num-1].classList.add("deactive");
                     sliders[num-1].classList.remove("active")
-                }
-                num++
+                }                
+                num++;                
             }else{ 
                 sliders[num-1].classList.add("deactive");
                 sliders[num-1].classList.remove("active");                             
                 num=0;               
                 sliders[num].classList.add("active");
                 sliders[num].classList.remove("deactive");                
-            }
+            }                      
             setTimeout(slidingScreen,3000);
+
+            return function(num){
+                return num;            
+            }
+            
         }
         slidingScreen();
+        let x = slidingScreen();
+        console.log(x());
+
+        nextBtn.addEventListener("click",function(){
+            moveSlide("next");
+        });
+        preBtn.addEventListener("click",function(){
+            moveSlide("pre");
+        });        
+
+        const moveSlide = direction =>{
+            if(direction==="next"){
+                if(num<sliders.length){                                        
+                    num++;                    
+                    sliders[num].classList.add("active");               
+                    sliders[num].classList.remove("deactive");                   
+                }else{
+                    num=0;
+                }                                
+                
+            }else{
+                num--;
+                console.log(num);
+            }
+        }          
 
      
     </script>
